@@ -64,6 +64,12 @@ class MyGUI:
         self.equal_btn = tk.Button(self.buttonframe, text="=", font=("Times New Roman", 12), command=self.Equal_btn)
         self.equal_btn.grid(row=5, column=3, sticky=tk.W + tk.E)
 
+        self.dot_btn = tk.Button(self.buttonframe, text=".", font=("Times New Roman", 12), command=self.Dot_btn)
+        self.dot_btn.grid(row=5, column=2, sticky=tk.W + tk.E)
+
+        self.delete_btn = tk.Button(self.buttonframe, text="delete", font=("Times New Roman", 12), command=self.Delete_btn)
+        self.delete_btn.grid(row=1, column=2, sticky=tk.W + tk.E)
+
         self.buttonframe.pack(padx = 20, pady = 20,fill = "both")
 
         self.root.mainloop()
@@ -108,7 +114,17 @@ class MyGUI:
     def Divide_btn(self):
         self.textbox.insert(tk.END,"/")
 
+    def Dot_btn(self):
+        self.textbox.insert(tk.END,".")
+
+    def Delete_btn(self):
+        print(str(float(self.textbox.index(tk.END)) - 1))
+        self.textbox.delete(str(float(self.textbox.index(tk.END)) - 1), tk.END)
+
     def Equal_btn(self):
-        self.textbox.insert(tk.END,"=")
+        expression = self.textbox.get("1.0", tk.END)
+        self.textbox.delete("1.0", tk.END)
+        self.textbox.insert(tk.END,(eval(expression)))
+        
 
 MyGUI()
